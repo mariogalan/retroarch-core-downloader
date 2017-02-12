@@ -1,0 +1,21 @@
+{
+    "name": "mariogalan/retroarch-core-downloader",
+    "description": "This script will download all the latest cores available for retroarch and put them on the correct directory.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mario Galan",
+            "email": "mario.galan@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^3.2",
+        "symfony/config": "^3.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}

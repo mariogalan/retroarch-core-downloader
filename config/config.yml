@@ -1,0 +1,6 @@
+main:
+  remote_url: 'https://buildbot.libretro.com/nightly/linux/x86_64/latest/'
+  tmp_dir: '/tmp'
+  dest_dir: '~/.config/retroarch/cores'
+
+
