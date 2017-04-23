@@ -1,7 +1,6 @@
 main:
   remote_url: 'https://buildbot.libretro.com/nightly/linux/x86_64/latest/'
   remote_files_pattern: ~
-  #dest_dir: '/home/galan/.config/retroarch/cores'
-  dest_dir: '/usr/lib/x86_64-linux-gnu/libretro/'
+  dest_dir: '/home/galan/.config/retroarch/cores'
 
 

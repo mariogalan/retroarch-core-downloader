@@ -5,6 +5,8 @@ namespace Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,8 +33,8 @@ class DownloadCoresCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $url = 'https://buildbot.libretro.com/nightly/linux/x86_64/latest/';
-        $content = file_get_contents($url);
+        $config = Yaml::parse(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . '/../../config/config.yml'));
+        $content = file_get_contents($config['main']['remote_url']);
 
         $dom = new \DOMDocument();
         $dom->loadHTML($content);
@@ -46,10 +48,24 @@ class DownloadCoresCommand extends Command
             }
         }
 
-        var_dump($allCores);
+        $fs = new Filesystem();
+
+        $output->writeln('Found ' . count($allCores) . 'cores');
         foreach ($allCores as $allCore) {
-            file_put_contents($allCore, file_get_contents($url . $allCore));
+            $destination = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $allCore;
+            $origin = $config['main']['remote_url'] . DIRECTORY_SEPARATOR . $allCore;
+            $output->writeln('Downloading ' . $origin . ' to ' . $destination);
+            file_put_contents($destination, file_get_contents($origin));
+
+            // Decompress file
+            $zip = new \ZipArchive();
+            $res = $zip->open($destination);
+            if ($res === TRUE) {
+                $zip->extractTo($config['main']['dest_dir']);
+                $zip->close();
+                $fs->remove($destination);
+                $output->writeln('Extracted ' . $destination);
+            }
         }
     }
-
 }
