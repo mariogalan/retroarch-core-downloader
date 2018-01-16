@@ -6,7 +6,7 @@ setup:
 
 test:
     php_unit:
-        directory: "test/phpunit/"
+        directory: "vendor/bin/phpunit/"
         args: "--bootstrap 'test/phpunit/bootstrap.php' --configuration 'test/phpunit/phpunit.xml'"
 
 complete:
