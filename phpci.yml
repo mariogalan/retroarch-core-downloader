@@ -8,7 +8,7 @@ setup:
 
 test:
     php_unit:
-        directory: "vendor/bin/phpunit/"
+#        directory: "vendor/bin/phpunit/"
 #        args: "--configuration 'phpunit.xml'"
 
 complete:
