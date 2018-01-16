@@ -7,6 +7,6 @@ setup:
 test:
     php_unit:
         directory: "vendor/bin/phpunit/"
-        args: "--configuration '/phpunit.xml'"
+        args: "--configuration 'phpunit.xml'"
 
 complete:
